@@ -1,0 +1,118 @@
+{% extends 'customer/base.html' %}
+{% block title %} order page {% endblock %}
+
+{% block content %}
+<div class="container mb-5">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8 col-sm-12 offset-md-1 p-4 text-center">
+            <h1>order menu </h1>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-1">
+        <div class="col-md-6 col-sm-12 card p-4 text-justify">
+            <form method="post">
+                {% csrf_token %}
+                <div class="pt-5">
+                    {% for c in cat %}
+                    {% if c.item.all %}
+                    <div class="row pt-5">
+                        <p class="font-weight-bold ps-5"> {{c.name}}</p>
+                            {% for sub in c.item.all %}
+                        <div class="col-md-2 col-sm-12">
+                            <img src="{{sub.img.url}}" class="rounded" height="100" width="150">
+                        </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex flex-row">
+                                <input type="checkbox" name="items[]" class="form-checkbox-input" value="{{sub.pk}}">
+                                <label class="form-checkbox-label">{{sub.name}}</label>
+                            </div>
+                            <p class="font-weight-bold ps-5">{{sub.price}}</p>
+                        </div>
+                        <p class="font-weight-bold ps-5">{{sub.des}}</p>
+                            {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12">
+                            <p class="font-weight-bold ps-5"> {{c.name}}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <!--جزء الخاص بيانات طالب الاكل-->
+                <div class="form-group pt-3">
+                    <label for="name"> full name</label>
+                    <input type="text" required placeholder="enter your name" name="name" class="form-control">
+                </div>
+                <div class="form-group pt-3">
+                    <label for="email"> email</label>
+                    <input type="text" required placeholder="enter your email" name="email" class="form-control">
+                </div>
+                <div class="form-group pt-3">
+                    <label for="street"> street</label>
+                    <input type="text" required placeholder="enter your street" name="street" class="form-control">
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                         <div class="form-group pt-3">
+                            <label for="city"> city</label>
+                            <input type="text" required placeholder="enter your city" name="city" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="form-group pt-3">
+                             <label for="state"> state</label>
+                             <input type="text" required placeholder="enter your state" name="state" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="form-group pt-3">
+                            <label for="zip-code"> zip-code</label>
+                            <input type="text" required placeholder="enter your zip-code" name="zip-code" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-dark mt-5" data-bs-toggle="modal" data-bs-target="#sumiteModal">
+                  place order
+                </button>
+<!--            <button type="submit" class="btn btn-dark mt-5">place order</button>-->
+                <!-- Modal -->
+<div class="modal fade" id="sumiteModal" tabindex="-1" aria-labelledby="order-submit" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="order-submit"> submit your order</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        are you submit your order?
+          if Yes click in place order, but No click go back
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">go back</button>
+        <button type="submit" class="btn btn-primary">place order</button>
+      </div>
+    </div>
+  </div>
+</div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!--{% for c in cat %}-->
+<!--<p> {{c.name}}</p>-->
+<!--{% if c.item.all %}-->
+<!--<ul>-->
+<!--   {% for sub in c.item.all%}-->
+<!--<li>{{sub.name}} - {{sub.price}}</li>-->
+<!--    {% endfor %}-->
+<!--</ul>-->
+
+<!--{% else %}-->
+<!--<p> {{c.name}}</p>-->
+<!--{% endif %}-->
+<!--{% endfor%}-->
+{% endblock %}

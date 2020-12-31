@@ -1,0 +1,20 @@
+{% extends 'customer/base.html' %}
+{% block title %} about page {% endblock %}
+
+{% block content %}
+<div class="container mb-5">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8 col-sm-12 offset-md-1 p-4 text-center">
+            <h1>about us </h1>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-1">
+        <div class="col-md-10 col-sm-12 card offset-md-1 p-4 text-justify">
+            <h2 class="text-center">place an order</h2>
+            <p class="lead">{% lorem 1%}</p>
+            <p class="lead">{% lorem 1%}</p>
+            <p class="lead">{% lorem 1%}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

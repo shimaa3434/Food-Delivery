@@ -1,0 +1,51 @@
+{% extends 'customer/base.html' %}
+{% block title %} order details page {% endblock %}
+
+{% block content %}
+<div class="container mb-5">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8 col-sm-12 offset-md-1 p-4 text-center">
+            <h1>order details : {{order.pk}}</h1>
+        </div>
+    </div>
+     <div class="row justify-content-center my-5">
+        <div class="col-12">
+            <a href="{% url 'dashboeard' %}" class="btn btn-dark"><i class="far fa-hand-point-left"></i></a>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6 col-sm-12 card  p-4 text-justify">
+            <h3>customer information : </h3>
+            <p><span>name : {{order.name}}</span></p>
+            <p><span>email : {{order.email}}</span></p>
+            <h5>address information : </h5>
+            <p><span>street : {{order.street}}</span></p>
+            <p><span>city : {{order.city}}</span></p>
+            <p><span>state : {{order.state}}</span></p>
+            <p><span>zip_code : {{order.zip_code}}</span></p>
+             <p><span> total price : {{order.price}}</span></p>
+            <p><span> total items count : {{order.items.count}}</span></p>
+        </div>
+        <div class="col-md-6 col-sm-12 card p-4 text-justify">
+            <h3>payment and shipping information : </h3>
+                <p class="mt-3"> paid :
+                    {% if order.is_paid%}
+                    <span style="color: green">yes is paid</span>
+                    {% else %}
+                     <span style="color: red">No is not  paid</span>
+                    {% endif %}
+                </p>
+             <p class="mt-3"> shipped :
+                    {% if order.is_shipped%}
+                    <span style="color: green">yes is shipped</span>
+                    {% else %}
+                     <form method="post">
+                         {% csrf_token %}
+            <button type="submit" class="btn btn-dark">mark as shipped</button>
+                     </form>
+                    {% endif %}
+                </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'customer/base.html' %}
+{% block title %} home page {% endblock %}
+
+{% block content %}
+<nav class="nav">
+    <!--لعمل اقسام فرعية واقسام رئيسية -->
+{% for cat in categories %}
+    {% if not cat.children.all %}
+         <a class="nav-link" href="#">{{cat.name}}</a>
+    {% else %}
+        <div class="dropdown">
+          <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            {{cat.name}}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              {% for sub in cat.children.all%}
+            <li><a class="dropdown-item" href="#">{{sub.name}}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+    {% endif %}
+{% endfor %}
+</nav>
+
+<div class="container mb-5">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8 col-sm-12 offset-md-1 p-4 text-center">
+            <h1>online food delivery </h1>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-1">
+        <div class="col-md-5 col-sm-12 card offset-md-1 p-4 text-center">
+            <h2>place an order</h2>
+            <a href="{% url 'order' %}" class="btn btn-outline-primary mt-4">order now</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'restaurant/base.html' %}
+{% block title %} dashboard page {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center align-items-center my-4">
+        <div class="col-md-6 ">
+            <div class="card">
+                <h4 class="text-center pt-3"> today's total revenue</h4>
+                 <h1 class="text-center" style="color: orange;">${{total}}</h1>
+            </div>
+        </div>
+         <div class=" col-md-6">
+             <div class="card bg-gradient-dark">
+                <h4 class="text-center pt-3"> today's total orders</h4>
+                <h1 class="text-center" style="color: blue;">{{total_orders}}</h1>
+             </div>
+        </div>
+         <div class="col-md-6 my-2">
+             <div class="card">
+                 <h4 class="text-center pt-3"> today's total shipped</h4>
+                <h1 class="text-center" style="color: green;">{{shipped}}</h1>
+             </div>
+        </div>
+         <div class="col-md-6 my-2">
+             <div class="card">
+                <h4 class="text-center pt-3"> today's total not_shipped</h4>
+                <h1 class="text-center" style="color: red;">{{not_shipped}}</h1>
+             </div>
+        </div>
+    </div>
+    <div class="row justify-content-center align-items-center my-4">
+        <table class="table table-striped table-hover text-center table-dark">
+  <thead>
+    <tr>
+      <th scope="col">order id</th>
+      <th scope="col">price</th>
+      <th scope="col">name</th>
+      <th scope="col">email</th>
+        <th scope="col">street</th>
+        <th scope="col">city</th>
+        <th scope="col">state</th>
+        <th scope="col">zip code</th>
+        <th scope="col">is paid</th>
+        <th scope="col">details</th>
+    </tr>
+  </thead>
+  <tbody class="{% cycle 'text-warning' 'text-primary' %}">
+  {% for order in orders%}
+    <tr>
+      <th scope="row">{{order.pk}}</th>
+      <td>{{order.price}}</td>
+      <td>{{order.name}}</td>
+        <td>{{order.email}}</td>
+      <td>{{order.street}}</td>
+        <td>{{order.city}}</td>
+      <td>{{order.state}}</td>
+        <td>{{order.zip_code}}</td>
+      <td>{% if order.is_paid%}
+          <i class="fas fa-check-double text-success"></i>
+          {% else %}
+          <i class="fas fa-times text-danger"></i>
+          {% endif %}
+          </td>
+      <td><a href="{% url 'order_details' order.pk %}" class="text-info"><i class="far fa-file"></i></a></td>
+    </tr>
+  {% endfor%}
+  </tbody>
+</table>
+    </div>
+</div>
+{% endblock %}
